@@ -1,0 +1,102 @@
+Name: Alan Lewis Gitau
+Email: alangitau0@gmail.com
+Week 8 Database Assignment
+Pitch deck link: https://gamma.app/docs/Alan-Lewis-Gitaus-Database-Analysis-yai9xjhy2nvut97
+
+This document presents an analysis of a subset of the Netflix titles database, focusing on a sample of 100 records. Through a series of SQL queries, we've explored various aspects of the dataset, including the distribution of movies and TV shows across different countries, the most prolific directors.
+From the dataset my main aim was to answer the following questions:
+1. Which countries produced the highest number of tv shows and movies?
+2. Which directors produced the highest and lowest number of movies and tv shows?
+
+The following queries demonstrate the power of SQL in extracting meaningful information from structured data, allowing us to uncover patterns and top performers in different categories.
+(my SQL imported only 100 records from the data set)
+
+The SQL queries:
+Use Netflix    //used to select the database to use
+
+select*
+from netflix_titles    //selects all records from the netflix_titles table
+
+select type, title, release_year
+from netflix_titles
+where country='India’; (I replaced India with other different countries just to play around with the data)
+
+used the above SQL command to find out the types and years of movies released in India 
+found out India only has released one movie and it was released in 1998 way back
+
+select country, title, release_year
+from netflix_titles
+where listed_in='Reality Tv';
+
+I used this command to find the countries that produced reality tv with the title, release year and country of production.
+
+select country
+from netflix_titles
+where type='Tv show';
+
+used the above command to find the countries that produced the highest number of tv shows in the 100 records
+my findings were that both united states and India produced the highest number of tv shows i.e. five
+
+
+select country
+from netflix_titles
+where type='Movie';
+
+used the above command to find the countries that produced the highest number of Movies in the 100 records
+my findings were that both united states and Japan produced the highest number of Movies i.e. 13
+
+SELECT country, COUNT(*) as tv_show_count
+FROM netflix_titles
+WHERE type = 'TV Show'
+  AND country IS NOT NULL
+  AND country != ''
+GROUP BY country
+ORDER BY tv_show_count DESC
+LIMIT 5;
+
+##This query does the following:
+1. Selects from the netflix_titles table.
+2. Filters for only TV shows using WHERE type = 'TV Show'.
+3. Excludes entries where the country is NULL or an empty string.
+4. Groups the results by country.
+5. Counts the number of TV shows for each country.
+6. Orders the results in descending order of the count.
+7. Limits the output to 5 row to get only the top Five result.
+
+
+United States were top with 6 tv shows
+
+SQL Query To Find Countries That Have Produced Highest Number Of Movies
+
+SELECT country, COUNT(*) as movie_count
+FROM netflix_titles
+WHERE type = 'Movie'
+  AND country IS NOT NULL
+  AND country != ''
+GROUP BY country
+ORDER BY movie_count DESC
+LIMIT 5; (sets the limit to only display top 5)
+
+
+Japan was top with 12 movies produced
+
+SQL query to find out which director produced highest number of movies
+SELECT director, COUNT(*) as director_count
+FROM netflix_titles
+WHERE type = 'Movie'
+  AND director IS NOT NULL
+  AND director != ''
+GROUP BY director
+ORDER BY director_count DESC
+LIMIT 1;
+
+used the above query to find out which director produced the highest number of movies from the 100 records imported and set the limit to one so as to only display the highest. Toshiya Shinohara was the top with 5 produced movies
+
+
+
+
+
+
+
+
+
